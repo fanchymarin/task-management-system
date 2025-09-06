@@ -1,0 +1,42 @@
+body {
+	background-color: #008080;
+}
+
+.window {
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10%;
+	margin-bottom: 10%;
+}
+
+.title-bar-text {
+	font-size: x-large;
+}
+
+.window-body {
+	font-size: large;
+}
+
+.invoices-count {
+	float: inline-end;
+	font-size: medium;
+}
+
+.invoices-info {
+	font-size: large;
+	font-weight: bold;
+}
+
+.invoices-info-box {
+	font-size: medium;
+	font-weight: normal;
+}
+
+.underline {
+	text-decoration: underline;
+}
+
+.log-info {
+	font-size: medium;
+}
