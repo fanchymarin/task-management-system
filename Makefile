@@ -8,8 +8,8 @@ RESET = \033[0m
 PROJECT_NAME = revving-app
 
 define help_message =
-	@echo -n "$(YELLOW)$(BOLD)[Makefile]$(RESET)"
-	@echo "$(BOLD)${1}$(RESET)"
+	@echo -e "$(YELLOW)$(BOLD)[Makefile]$(RESET)"
+	@echo -e "$(BOLD)${1}$(RESET)"
 endef
 
 include .env
@@ -18,15 +18,15 @@ all: list
 
 list:
 	@echo
-	@echo "${BLUE}${BOLD}Available recipes:"
-	@echo "  ${GREEN}${BOLD}list             ${CYAN}- Show this help message"
-	@echo "  ${GREEN}${BOLD}up               ${CYAN}- Run the containerized application"
-	@echo "  ${GREEN}${BOLD}build            ${CYAN}- Build the container image"
-	@echo "  ${GREEN}${BOLD}down             ${CYAN}- Stop the containerized application"
-	@echo "  ${GREEN}${BOLD}test             ${CYAN}- Run tests in the containerized application"
-	@echo "  ${GREEN}${BOLD}clean            ${CYAN}- Stop and remove the database volume"
-	@echo "  ${GREEN}${BOLD}fclean           ${CYAN}- Stop and remove all containers and volumes"
-	@echo "  ${GREEN}${BOLD}re               ${CYAN}- Clean up all and run the containerized application"
+	@echo -e "${BLUE}${BOLD}Available recipes:"
+	@echo -e "  ${GREEN}${BOLD}list             ${CYAN}- Show this help message"
+	@echo -e "  ${GREEN}${BOLD}up               ${CYAN}- Run the containerized application"
+	@echo -e "  ${GREEN}${BOLD}build            ${CYAN}- Build the container image"
+	@echo -e "  ${GREEN}${BOLD}down             ${CYAN}- Stop the containerized application"
+	@echo -e "  ${GREEN}${BOLD}test             ${CYAN}- Run tests in the containerized application"
+	@echo -e "  ${GREEN}${BOLD}clean            ${CYAN}- Stop and remove the database volume"
+	@echo -e "  ${GREEN}${BOLD}fclean           ${CYAN}- Stop and remove all containers and volumes"
+	@echo -e "  ${GREEN}${BOLD}re               ${CYAN}- Clean up all and run the containerized application"
 	@echo
 
 up: build
