@@ -9,24 +9,24 @@ PYTHON_BIN = python
 DUMP_FILE = dump.sql.postgres
 
 define help_message =
-	@echo -n "$(YELLOW)$(BOLD)[Makefile]$(RESET)"
-	@echo "$(BOLD)${1}$(RESET)"
+	@echo -e "$(YELLOW)$(BOLD)[Makefile]$(RESET)"
+	@echo -e "$(BOLD)${1}$(RESET)"
 endef
 
 all: list
 
 list:
 	@echo
-	@echo "${BLUE}${BOLD}Available recipes:"
-	@echo "  ${GREEN}${BOLD}list             ${CYAN}- Show this help message"
-	@echo "  ${GREEN}${BOLD}up               ${CYAN}- Run the server"
-	@echo "  ${GREEN}${BOLD}setup            ${CYAN}- Create virtual environment and install dependencies"
-	@echo "  ${GREEN}${BOLD}shell            ${CYAN}- Run python shell"
-	@echo "  ${GREEN}${BOLD}dbshell          ${CYAN}- Run database shell"
-	@echo "  ${GREEN}${BOLD}test             ${CYAN}- Run tests"
-	@echo "  ${GREEN}${BOLD}clean            ${CYAN}- Clean up database"
-	@echo "  ${GREEN}${BOLD}fclean           ${CYAN}- Clean up database and virtual environment"
-	@echo "  ${GREEN}${BOLD}re               ${CYAN}- Clean up all and run the server"
+	@echo -e "${BLUE}${BOLD}Available recipes:"
+	@echo -e "  ${GREEN}${BOLD}list             ${CYAN}- Show this help message"
+	@echo -e "  ${GREEN}${BOLD}up               ${CYAN}- Run the server"
+	@echo -e "  ${GREEN}${BOLD}setup            ${CYAN}- Create virtual environment and install dependencies"
+	@echo -e "  ${GREEN}${BOLD}shell            ${CYAN}- Run python shell"
+	@echo -e "  ${GREEN}${BOLD}dbshell          ${CYAN}- Run database shell"
+	@echo -e "  ${GREEN}${BOLD}test             ${CYAN}- Run tests"
+	@echo -e "  ${GREEN}${BOLD}clean            ${CYAN}- Clean up database"
+	@echo -e "  ${GREEN}${BOLD}fclean           ${CYAN}- Clean up database and virtual environment"
+	@echo -e "  ${GREEN}${BOLD}re               ${CYAN}- Clean up all and run the server"
 	@echo
 
 up: setup
