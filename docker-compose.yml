@@ -1,5 +1,8 @@
 services:
   postgres:
+    build:
+      context: .
+      dockerfile: images/postgres/Dockerfile
     env_file: .env
     environment:
       POSTGRES_DB: $POSTGRES_DB
@@ -11,7 +14,6 @@ services:
       test: ["CMD-SHELL", "pg_isready"]
       timeout: 5s
     hostname: postgres
-    image: postgres:17.2
     restart: always
     shm_size: 128mb
     volumes:
@@ -20,6 +22,7 @@ services:
   django:
     build:
       context: .
+      dockerfile: images/django/Dockerfile
     env_file: .env
     environment:
       DJANGO_SUPERUSER_EMAIL: $DJANGO_SUPERUSER_EMAIL
