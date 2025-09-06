@@ -5,7 +5,7 @@ CYAN = \033[1;36m
 BOLD = \033[1m
 RESET = \033[0m
 
-PROJECT_NAME = revving-app
+PROJECT_NAME = django-app
 
 define help_message =
 	@echo -e "$(YELLOW)$(BOLD)[Makefile]$(RESET)"
@@ -32,12 +32,6 @@ list:
 up: build
 	$(call help_message, "Running the containerized application...")
 	docker compose --project-name=${PROJECT_NAME} up -d
-	$(call help_message, "Waiting for application to be ready...")
-	@until docker compose --project-name=${PROJECT_NAME} exec django curl -sSf "http://localhost:8000" >/dev/null 2>&1; do \
-		echo -n "$(YELLOW)$(BOLD)[Makefile]$(RESET)" ; \
-		echo " $(BOLD)...$(RESET)" ; \
-		sleep 3 ; \
-	done
 	$(call help_message, "Application is ready!")
 	$(call help_message, "You can access it at http://localhost:${DJANGO_PORT}")
 
