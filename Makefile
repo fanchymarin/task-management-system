@@ -5,7 +5,7 @@ CYAN = \033[1;36m
 BOLD = \033[1m
 RESET = \033[0m
 
-PROJECT_NAME = django-app
+PROJECT_NAME = rest-api
 
 define help_message =
 	@echo -e "$(YELLOW)$(BOLD)[Makefile]$(RESET)"
@@ -53,7 +53,7 @@ clean: down
 
 fclean: clean
 	$(call help_message, "Removing container image...")
-	docker rmi -f ${PROJECT_NAME}-django
+	docker rmi -f ${PROJECT_NAME}-django ${PROJECT_NAME}-postgres
 
 re: fclean up
 

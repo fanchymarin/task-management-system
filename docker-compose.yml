@@ -21,8 +21,7 @@ services:
 
   django:
     build:
-      context: .
-      dockerfile: images/django/Dockerfile
+      context: django_backend/
     env_file: .env
     environment:
       DJANGO_SUPERUSER_EMAIL: $DJANGO_SUPERUSER_EMAIL
@@ -35,7 +34,7 @@ services:
       - ${DJANGO_PORT}:8000
     restart: always
     volumes:
-      - ./src:/app
+      - ./django_backend:/app
 
 volumes:
   postgres-data:

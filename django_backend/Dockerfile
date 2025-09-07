@@ -5,7 +5,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
 	make postgresql-client
 
-ADD src/ .
+ADD . .
 
 EXPOSE 8000
 
