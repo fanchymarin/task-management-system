@@ -33,7 +33,7 @@ up: build
 	$(call help_message, "Running the containerized application...")
 	docker compose --project-name=${PROJECT_NAME} up -d
 	$(call help_message, "Application is ready!")
-	$(call help_message, "You can access it at http://localhost:${DJANGO_PORT}")
+	$(call help_message, "You can access it at http://localhost:${DJANGO_PORT}/api/")
 
 build:
 	$(call help_message, "Building the container image...")
