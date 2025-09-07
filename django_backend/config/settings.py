@@ -26,16 +26,12 @@ SECRET_KEY = 'django-insecure-+fia#snp$tdhfjjn(*^+d9@-pavz*-jt_9s89&9(sa5p(=u=d^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-LOGIN_REDIRECT_URL = "/invoices/"
-LOGOUT_REDIRECT_URL = "/invoices/"
-
 ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
-	'invoices.apps.InvoicesConfig',
 	'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -52,7 +48,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-	'invoices.middleware.InvoiceAccessMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -143,6 +138,8 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }

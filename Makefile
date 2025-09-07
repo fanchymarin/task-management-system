@@ -34,6 +34,9 @@ up: build
 	docker compose --project-name=${PROJECT_NAME} up -d
 	$(call help_message, "Application is ready!")
 	$(call help_message, "You can access it at http://localhost:${DJANGO_PORT}/api/")
+	@sleep 2
+	$(call help_message, "Showing the logs of Django container...")
+	docker compose --project-name=${PROJECT_NAME} logs -f django
 
 build:
 	$(call help_message, "Building the container image...")
@@ -42,6 +45,10 @@ build:
 down:
 	$(call help_message, "Stopping the containerized application...")
 	docker compose --project-name=${PROJECT_NAME} down
+
+shell: up
+	$(call help_message, "Accessing the Django container shell...")
+	docker compose --project-name=${PROJECT_NAME} exec -it django /bin/bash
 
 test: up
 	$(call help_message, "Running tests from container...")
