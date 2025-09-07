@@ -62,6 +62,6 @@ fclean: clean
 	$(call help_message, "Removing container image...")
 	docker rmi -f ${PROJECT_NAME}-django ${PROJECT_NAME}-postgres
 
-re: fclean up
+re: clean up
 
 .PHONY: all list up build down test clean fclean re

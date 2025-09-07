@@ -19,6 +19,7 @@ from django.views.generic.base import RedirectView
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 from .views import health_check
+from django.contrib import admin
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -36,4 +37,5 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/api/', permanent=False)),
     path('api/', include(router.urls)),
     path('health/', health_check, name='health_check'),
+    path('admin/', admin.site.urls),
 ]
