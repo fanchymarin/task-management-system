@@ -21,6 +21,7 @@ from django.views.generic.base import RedirectView
 
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
+from .views import health_check
 
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -42,6 +43,7 @@ router.register(r'users', UserViewSet)
 urlpatterns = [
     path('api/', include(router.urls)),
     path('api/auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('health/', health_check, name='health_check'),
 
     path('admin/', admin.site.urls),
     path('invoices/', include('invoices.urls')),
