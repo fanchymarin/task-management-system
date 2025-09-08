@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'apps.users',
     'apps.tasks',
+    'apps.common',
 ]
 
 # Custom user model
@@ -60,7 +61,11 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'apps', 'users', 'templates'),
+            os.path.join(BASE_DIR, 'apps', 'tasks', 'templates'),
+            os.path.join(BASE_DIR, 'apps', 'common', 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -148,5 +153,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
 }
