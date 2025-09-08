@@ -38,7 +38,7 @@ class Task(models.Model):
     parent_task = models.ForeignKey('self', null=True, on_delete=models.SET_NULL, related_name='subtasks')
 
     # Metadata
-    metadata = models.JSONField(default=dict)
+    metadata = models.JSONField(default=dict, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_archived = models.BooleanField(default=False)

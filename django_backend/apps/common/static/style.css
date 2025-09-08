@@ -40,3 +40,7 @@ body {
 .log-info {
 	font-size: medium;
 }
+
+.button {
+	margin: 1;
+}
