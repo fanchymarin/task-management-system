@@ -10,7 +10,13 @@ INSERT INTO users_user (id, username, first_name, last_name, email, password, is
 (7, 'david_ops', 'David', 'Garcia', 'david@example.com', 'pbkdf2_sha256$260000$aBcDeF1g2H3i4J5k6L7m8N$oPqRsTuVwXyZaBcDeFgHiJkLmNoPqRsTuVwXyZ9AbC=', false, true, false, '2024-10-12 09:45:00', '2025-01-08 10:00:00'),
 (8, 'emma_pm', 'Emma', 'Martinez', 'emma@example.com', 'pbkdf2_sha256$260000$1A2b3C4d5E6f7G8h9I0j$KlMnOpQrStUvWxYzAbCdEfGhIjKlMnOpQrStUvWxYz=', true, true, false, '2024-10-15 14:00:00', '2025-01-08 15:45:00'),
 (9, 'alex_dev', 'Alex', 'Rodriguez', 'alex@example.com', 'pbkdf2_sha256$260000$aA1bB2cC3dD4eE5fF6gG$hHiIjJkKlLmMnNoPpQqRrSsTtUuVvWwXxYyZzAaBbCc=', false, true, false, '2024-10-18 10:30:00', '2025-01-07 17:20:00'),
-(10, 'sam_security', 'Samantha', 'Lee', 'sam@example.com', 'pbkdf2_sha256$260000$zZyYxXwWvVuUtTsSrRqQp$PpOoNnMmLlKkJjIiHhGgFfEeDdCcBbAaZzYyXxWwVv=', false, true, false, '2024-10-20 08:15:00', '2025-01-08 09:40:00');
+(10, 'sam_security', 'Samantha', 'Lee', 'sam@example.com', 'pbkdf2_sha256$260000$zZyYxXwWvVuUtTsSrRqQp$PpOoNnMmLlKkJjIiHhGgFfEeDdCcBbAaZzYyXxWwVv=', false, true, false, '2024-10-20 08:15:00', '2025-01-08 09:40:00'),
+(11, 'olivia_design', 'Olivia', 'Brown', 'olivia@example.com', 'pbkdf2_sha256$260000$jKlMnOpQrStUvWxYzAbC$dEfGhIjKlMnOpQrStUvWxYzAbCdEfGhIjKlM=', false, true, false, '2024-10-25 12:45:00', '2025-01-07 13:30:00'),
+(12, 'noah_frontend', 'Noah', 'Taylor', 'noah@example.com', 'pbkdf2_sha256$260000$AbCdEfGhIjKlMnOpQr$StUvWxYzAbCdEfGhIjKlMnOpQrStUvWxYz=', false, true, false, '2024-10-28 09:30:00', '2025-01-08 11:25:00'),
+(13, 'liam_backend', 'Liam', 'Clark', 'liam@example.com', 'pbkdf2_sha256$260000$OpQrStUvWxYzAbCdE$fGhIjKlMnOpQrStUvWxYzAbCdEfGhIjKlMn=', false, true, false, '2024-11-01 14:15:00', '2025-01-07 15:55:00'),
+(14, 'mia_analyst', 'Mia', 'Anderson', 'mia@example.com', 'pbkdf2_sha256$260000$YzAbCdEfGhIjKlMnO$pQrStUvWxYzAbCdEfGhIjKlMnOpQrStUvW=', false, true, false, '2024-11-05 10:20:00', '2025-01-08 14:10:00'),
+(15, 'ethan_lead', 'Ethan', 'Wright', 'ethan@example.com', 'pbkdf2_sha256$260000$MnOpQrStUvWxYzAbC$dEfGhIjKlMnOpQrStUvWxYzAbCdEfGhIj=', true, true, false, '2024-11-10 08:50:00', '2025-01-07 09:45:00');
+
 
 -- 2. Insertar tags
 INSERT INTO tasks_tag (id, name) VALUES
