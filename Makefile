@@ -23,6 +23,7 @@ list:
 	@echo -e "  ${GREEN}${BOLD}up               ${CYAN}- Run the containerized application"
 	@echo -e "  ${GREEN}${BOLD}build            ${CYAN}- Build the container image"
 	@echo -e "  ${GREEN}${BOLD}down             ${CYAN}- Stop the containerized application"
+	@echo -e "  ${GREEN}${BOLD}logs             ${CYAN}- Show the logs of the Django container"
 	@echo -e "  ${GREEN}${BOLD}shell            ${CYAN}- Access the Django container shell"
 	@echo -e "  ${GREEN}${BOLD}shelldb          ${CYAN}- Access the Postgres container shell"
 	@echo -e "  ${GREEN}${BOLD}clean            ${CYAN}- Stop and remove the database volume"
@@ -34,8 +35,6 @@ up:
 	$(call help_message, "Running the containerized application...")
 	docker compose --project-name=${PROJECT_NAME} up -d
 	$(call help_message, "Application is ready!")
-	$(call help_message, "Showing the logs of Django container...")
-	docker compose --project-name=${PROJECT_NAME} logs -f django || true
 
 build:
 	$(call help_message, "Building the container image...")
@@ -44,6 +43,10 @@ build:
 down:
 	$(call help_message, "Stopping the containerized application...")
 	docker compose --project-name=${PROJECT_NAME} down
+
+logs:
+	$(call help_message, "Showing the logs of the Django container...")
+	docker compose --project-name=${PROJECT_NAME} logs -f django || true
 
 shell:
 	$(call help_message, "Accessing the Django container shell...")
@@ -63,4 +66,4 @@ fclean: clean
 
 re: clean build up
 
-.PHONY: all list up down shell shelldb clean fclean re
+.PHONY: all list up down logs shell shelldb clean fclean re
