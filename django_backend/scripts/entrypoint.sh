@@ -7,7 +7,7 @@ python manage.py makemigrations --noinput
 python manage.py migrate
 
 # Create superuser
-python manage.py createsuperuser --noinput --first_name "Admin" --last_name "User" --email "admin@example.com"
+python manage.py createsuperuser --noinput --first_name "Admin" --last_name "User"
 
 # Load initial data
 python manage.py dbshell < $DUMP_FILE

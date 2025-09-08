@@ -20,10 +20,12 @@ from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 from .views import health_check
 from apps.users.views import UserViewSet
+from apps.tasks.views import TaskViewSet
 from django.contrib import admin
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'tasks', TaskViewSet)
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/api/', permanent=False)),

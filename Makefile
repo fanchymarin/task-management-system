@@ -47,11 +47,11 @@ down:
 
 shell:
 	$(call help_message, "Accessing the Django container shell...")
-	docker compose --project-name=${PROJECT_NAME} exec -it django /bin/bash
+	docker compose --project-name=${PROJECT_NAME} exec -it django /bin/bash || true
 
 shelldb:
 	$(call help_message, "Accessing the Postgres container shell...")
-	docker compose --project-name=${PROJECT_NAME} exec -it postgres /bin/bash
+	docker compose --project-name=${PROJECT_NAME} exec -it postgres /bin/bash || true
 
 clean: down
 	$(call help_message, "Removing the database volume...")
