@@ -1,129 +1,227 @@
--- PostgreSQL dump for Django User model and Task model
--- Generated for development/testing purposes
+-- Dump de datos de prueba para el sistema de tareas
 
--- First, let's insert some users following Django's User model structure
--- Note: Passwords are hashed using Django's PBKDF2 algorithm
+-- 1. Insertar usuarios
+INSERT INTO users_user (
+    id, password, last_login, is_superuser, username, email, first_name, last_name, 
+    avatar, timezone, is_active, created_at, updated_at, is_staff, date_joined
+) VALUES
+(2, 'pbkdf2_sha256$600000$randomsalt456$hashedpassword', NOW(), false, 'john.doe', 'john.doe@example.com', 'John', 'Doe', 'https://avatar.example.com/john.jpg', 'America/New_York', true, NOW(), NOW(), false, NOW()),
+(3, 'pbkdf2_sha256$600000$randomsalt789$hashedpassword', NOW(), false, 'jane.smith', 'jane.smith@example.com', 'Jane', 'Smith', 'https://avatar.example.com/jane.jpg', 'Europe/London', true, NOW(), NOW(), false, NOW()),
+(4, 'pbkdf2_sha256$600000$randomsalt012$hashedpassword', NOW(), false, 'mike.johnson', 'mike.johnson@example.com', 'Mike', 'Johnson', NULL, 'America/Los_Angeles', true, NOW(), NOW(), false, NOW()),
+(5, 'pbkdf2_sha256$600000$randomsalt345$hashedpassword', NOW(), false, 'sarah.wilson', 'sarah.wilson@example.com', 'Sarah', 'Wilson', 'https://avatar.example.com/sarah.jpg', 'Asia/Tokyo', true, NOW(), NOW(), false, NOW()),
+(6, 'pbkdf2_sha256$600000$randomsalt678$hashedpassword', '2024-01-15 10:30:00', false, 'david.brown', 'david.brown@example.com', 'David', 'Brown', NULL, 'UTC', false, NOW(), NOW(), false, NOW());
 
--- Insert Users
-INSERT INTO auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) VALUES
-(1, 'pbkdf2_sha256$600000$randomsalt1$hashedpassword1', '2024-09-07 10:30:00+00:00', true, 'admin2', 'Juan', 'Pérez', 'admin@empresa.com', true, true, '2024-01-15 08:00:00+00:00'),
-(2, 'pbkdf2_sha256$600000$randomsalt2$hashedpassword2', '2024-09-06 16:45:00+00:00', false, 'maria.garcia', 'María', 'García', 'maria.garcia@empresa.com', true, true, '2024-02-01 09:15:00+00:00'),
-(3, 'pbkdf2_sha256$600000$randomsalt3$hashedpassword3', '2024-09-05 14:20:00+00:00', false, 'carlos.lopez', 'Carlos', 'López', 'carlos.lopez@empresa.com', false, true, '2024-02-10 11:30:00+00:00'),
-(4, 'pbkdf2_sha256$600000$randomsalt4$hashedpassword4', '2024-09-04 09:10:00+00:00', false, 'ana.rodriguez', 'Ana', 'Rodríguez', 'ana.rodriguez@empresa.com', false, true, '2024-02-15 10:45:00+00:00'),
-(5, 'pbkdf2_sha256$600000$randomsalt5$hashedpassword5', '2024-09-03 13:55:00+00:00', false, 'david.martinez', 'David', 'Martínez', 'david.martinez@empresa.com', false, true, '2024-02-20 14:20:00+00:00'),
-(6, 'pbkdf2_sha256$600000$randomsalt6$hashedpassword6', '2024-09-02 11:30:00+00:00', false, 'laura.sanchez', 'Laura', 'Sánchez', 'laura.sanchez@empresa.com', false, true, '2024-02-25 16:10:00+00:00'),
-(7, 'pbkdf2_sha256$600000$randomsalt7$hashedpassword7', '2024-09-01 15:20:00+00:00', false, 'miguel.torres', 'Miguel', 'Torres', 'miguel.torres@empresa.com', false, false, '2024-03-01 12:00:00+00:00'),
-(8, 'pbkdf2_sha256$600000$randomsalt8$hashedpassword8', '2024-08-31 17:40:00+00:00', false, 'sofia.ruiz', 'Sofía', 'Ruiz', 'sofia.ruiz@empresa.com', false, true, '2024-03-05 13:25:00+00:00');
+-- 2. Insertar tags
+INSERT INTO tasks_tag (id, name) VALUES
+(1, 'Frontend'),
+(2, 'Backend'),
+(3, 'Database'),
+(4, 'Testing'),
+(5, 'Documentation'),
+(6, 'Bug Fix'),
+(7, 'Feature'),
+(8, 'Urgent'),
+(9, 'Research'),
+(10, 'Deployment'),
+(11, 'Security'),
+(12, 'Performance'),
+(13, 'UI/UX'),
+(14, 'API'),
+(15, 'Mobile');
 
--- Create a basic Tag table structure (referenced by Task model)
-CREATE TABLE IF NOT EXISTS app_tag (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL UNIQUE,
-    color VARCHAR(7) DEFAULT '#007bff',
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
+-- 3. Insertar tareas principales (sin parent_task)
+INSERT INTO tasks_task (
+    id, title, description, status, priority, due_date, estimated_hours, actual_hours,
+    created_by_id, parent_task_id, metadata, created_at, updated_at, is_archived
+) VALUES
+-- Tareas principales
+(1, 'Implementar sistema de autenticación', 
+ 'Desarrollar un sistema completo de autenticación con JWT, incluyendo login, registro, recuperación de contraseña y gestión de sesiones.', 
+ 'completed', 'high', '2024-12-15 17:00:00', 40.00, 42.50, 1, NULL, 
+ '{"complexity": "high", "technologies": ["Django", "JWT", "Redis"], "review_required": true}', 
+ '2024-11-01 09:00:00', '2024-12-16 14:30:00', false),
 
--- Insert some tags
-INSERT INTO app_tag (id, name, color) VALUES
-(1, 'frontend', '#28a745'),
-(2, 'backend', '#dc3545'),
-(3, 'database', '#ffc107'),
-(4, 'testing', '#17a2b8'),
-(5, 'documentation', '#6f42c1'),
-(6, 'bugfix', '#fd7e14'),
-(7, 'feature', '#20c997'),
-(8, 'urgent', '#e83e8c');
+(2, 'Rediseño de la interfaz principal', 
+ 'Actualizar completamente el diseño de la interfaz principal siguiendo las nuevas guías de estilo y mejorando la experiencia de usuario.', 
+ 'in_progress', 'medium', '2025-01-20 16:00:00', 60.00, 25.75, 2, NULL, 
+ '{"design_system": "Material Design 3", "responsive": true, "accessibility": "WCAG 2.1"}', 
+ '2024-12-01 10:00:00', '2025-01-08 11:15:00', false),
 
--- Create Task table structure
-CREATE TABLE IF NOT EXISTS app_task (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR(200) NOT NULL,
-    description TEXT NOT NULL,
-    status VARCHAR(20) NOT NULL,
-    priority VARCHAR(10) NOT NULL,
-    due_date TIMESTAMP WITH TIME ZONE NOT NULL,
-    estimated_hours DECIMAL(5,2) NOT NULL,
-    actual_hours DECIMAL(5,2) NULL,
-    created_by_id INTEGER NOT NULL REFERENCES auth_user(id),
-    parent_task_id INTEGER NULL REFERENCES app_task(id),
-    metadata JSONB DEFAULT '{}',
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    is_archived BOOLEAN DEFAULT FALSE
-);
+(3, 'Optimización de base de datos', 
+ 'Revisar y optimizar las consultas de base de datos más lentas, crear índices necesarios y implementar estrategias de caché.', 
+ 'pending', 'high', '2025-02-28 12:00:00', 35.00, NULL, 3, NULL, 
+ '{"database": "PostgreSQL", "tools": ["pg_stat_statements", "Redis"], "expected_improvement": "50%"}', 
+ '2024-12-20 08:30:00', '2024-12-20 08:30:00', false),
 
--- Insert Tasks
-INSERT INTO app_task (id, title, description, status, priority, due_date, estimated_hours, actual_hours, created_by_id, parent_task_id, metadata) VALUES
-(1, 'Implementar sistema de autenticación', 'Desarrollar el sistema completo de login y registro de usuarios con validaciones de seguridad', 'in_progress', 'high', '2024-09-15 23:59:59+00:00', 40.00, 25.50, 1, NULL, '{"complexity": "high", "technologies": ["Django", "JWT", "PostgreSQL"]}'),
-(2, 'Diseñar base de datos', 'Crear el esquema completo de la base de datos con todas las relaciones necesarias', 'completed', 'high', '2024-08-30 23:59:59+00:00', 20.00, 18.75, 2, NULL, '{"diagrams_created": true, "reviewed_by": "senior_architect"}'),
-(3, 'Desarrollar API REST', 'Implementar endpoints para CRUD de usuarios y tareas', 'pending', 'medium', '2024-09-20 23:59:59+00:00', 35.00, NULL, 3, NULL, '{"framework": "Django REST Framework", "documentation": "OpenAPI"}'),
-(4, 'Crear frontend con React', 'Desarrollar interfaz de usuario moderna y responsive', 'in_progress', 'medium', '2024-09-25 23:59:59+00:00', 50.00, 12.25, 4, NULL, '{"ui_library": "Material-UI", "state_management": "Redux"}'),
-(5, 'Implementar tests unitarios', 'Crear suite completa de tests para backend', 'pending', 'medium', '2024-09-18 23:59:59+00:00', 25.00, NULL, 5, 1, '{"coverage_target": "90%", "testing_framework": "pytest"}'),
-(6, 'Configurar CI/CD', 'Establecer pipeline de integración y despliegue continuo', 'pending', 'low', '2024-09-30 23:59:59+00:00', 15.00, NULL, 1, NULL, '{"platform": "GitHub Actions", "environments": ["staging", "production"]}'),
-(7, 'Optimizar consultas de base de datos', 'Identificar y optimizar queries lentas', 'completed', 'high', '2024-09-01 23:59:59+00:00', 12.00, 14.50, 2, 2, '{"tools_used": ["Django Debug Toolbar", "pg_stat_statements"]}'),
-(8, 'Documentar API', 'Crear documentación completa de endpoints', 'in_progress', 'low', '2024-09-22 23:59:59+00:00', 8.00, 3.00, 6, 3, '{"format": "Swagger/OpenAPI", "examples_included": true}'),
-(9, 'Resolver bug en login', 'Corregir error de validación en formulario de login', 'completed', 'urgent', '2024-09-05 23:59:59+00:00', 4.00, 2.75, 7, 1, '{"bug_id": "BUG-001", "affected_browsers": ["Safari", "Firefox"]}'),
-(10, 'Implementar notificaciones push', 'Añadir sistema de notificaciones en tiempo real', 'pending', 'low', '2024-10-10 23:59:59+00:00', 30.00, NULL, 8, NULL, '{"technology": "WebSockets", "fallback": "polling"}'),
-(11, 'Migrar a PostgreSQL 15', 'Actualizar base de datos a la última versión estable', 'pending', 'medium', '2024-09-28 23:59:59+00:00', 10.00, NULL, 2, NULL, '{"backup_strategy": "pg_dump", "downtime_window": "weekend"}'),
-(12, 'Crear dashboard de métricas', 'Implementar panel de control con estadísticas del sistema', 'in_progress', 'low', '2024-10-05 23:59:59+00:00', 20.00, 8.00, 4, NULL, '{"charts_library": "Chart.js", "real_time": true}');
+(4, 'Sistema de notificaciones push', 
+ 'Implementar notificaciones push para web y móvil con diferentes tipos de alertas y configuraciones de usuario.', 
+ 'on_hold', 'medium', '2025-03-15 15:00:00', 28.00, NULL, 4, NULL, 
+ '{"platforms": ["web", "ios", "android"], "service": "Firebase", "types": ["email", "push", "sms"]}', 
+ '2024-11-15 13:45:00', '2024-12-22 16:20:00', false),
 
--- Create many-to-many relationship tables
+(5, 'Migración a microservicios', 
+ 'Dividir la aplicación monolítica actual en microservicios independientes para mejorar escalabilidad y mantenimiento.', 
+ 'cancelled', 'low', '2025-06-30 23:59:00', 120.00, 15.00, 1, NULL, 
+ '{"reason_cancelled": "Cambio de prioridades", "architecture": "Docker + Kubernetes", "services_planned": 5}', 
+ '2024-10-01 09:00:00', '2024-12-10 10:00:00', true);
 
--- Task assigned users (many-to-many)
-CREATE TABLE IF NOT EXISTS app_task_assigned_to (
-    id SERIAL PRIMARY KEY,
-    task_id INTEGER NOT NULL REFERENCES app_task(id),
-    user_id INTEGER NOT NULL REFERENCES auth_user(id),
-    UNIQUE(task_id, user_id)
-);
+-- 4. Insertar subtareas
+INSERT INTO tasks_task (
+    id, title, description, status, priority, due_date, estimated_hours, actual_hours,
+    created_by_id, parent_task_id, metadata, created_at, updated_at, is_archived
+) VALUES
+-- Subtareas del sistema de autenticación (tarea 1)
+(6, 'Configurar JWT en Django', 
+ 'Instalar y configurar django-rest-framework-simplejwt para manejo de tokens JWT.', 
+ 'completed', 'high', '2024-12-05 17:00:00', 8.00, 6.50, 1, 1, 
+ '{"library": "djangorestframework-simplejwt", "token_lifetime": "1 hour"}', 
+ '2024-11-02 09:30:00', '2024-12-05 15:45:00', false),
 
--- Insert task assignments
-INSERT INTO app_task_assigned_to (task_id, user_id) VALUES
-(1, 3), (1, 4),  -- Authentication task assigned to Carlos and Ana
-(2, 2),          -- Database design assigned to María
-(3, 3), (3, 5),  -- API development assigned to Carlos and David
-(4, 4), (4, 6),  -- Frontend assigned to Ana and Laura
-(5, 5),          -- Testing assigned to David
-(6, 1),          -- CI/CD assigned to admin
-(7, 2),          -- DB optimization assigned to María
-(8, 6),          -- API documentation assigned to Laura
-(9, 7),          -- Bug fix assigned to Miguel
-(10, 8),         -- Push notifications assigned to Sofía
-(11, 2),         -- PostgreSQL migration assigned to María
-(12, 4), (12, 8); -- Dashboard assigned to Ana and Sofía
+(7, 'Crear endpoints de autenticación', 
+ 'Desarrollar API endpoints para login, logout, refresh token y verificación.', 
+ 'completed', 'high', '2024-12-08 17:00:00', 12.00, 14.00, 2, 1, 
+ '{"endpoints": ["/api/auth/login/", "/api/auth/logout/", "/api/auth/refresh/"], "tests_included": true}', 
+ '2024-11-05 10:00:00', '2024-12-08 16:30:00', false),
 
--- Task tags (many-to-many)
-CREATE TABLE IF NOT EXISTS app_task_tags (
-    id SERIAL PRIMARY KEY,
-    task_id INTEGER NOT NULL REFERENCES app_task(id),
-    tag_id INTEGER NOT NULL REFERENCES app_tag(id),
-    UNIQUE(task_id, tag_id)
-);
+(8, 'Implementar recuperación de contraseña', 
+ 'Sistema de recuperación de contraseña por email con tokens seguros.', 
+ 'completed', 'medium', '2024-12-12 17:00:00', 10.00, 12.00, 3, 1, 
+ '{"email_service": "SendGrid", "token_expiry": "30 minutes", "template": "custom"}', 
+ '2024-11-08 11:00:00', '2024-12-12 14:20:00', false),
 
--- Insert task-tag relationships
-INSERT INTO app_task_tags (task_id, tag_id) VALUES
-(1, 2), (1, 7),     -- Authentication: backend, feature
-(2, 3), (2, 7),     -- Database: database, feature
-(3, 2), (3, 7),     -- API: backend, feature
-(4, 1), (4, 7),     -- Frontend: frontend, feature
-(5, 4),             -- Testing: testing
-(6, 2),             -- CI/CD: backend
-(7, 3), (7, 2),     -- DB optimization: database, backend
-(8, 5),             -- Documentation: documentation
-(9, 6), (9, 8),     -- Bug fix: bugfix, urgent
-(10, 2), (10, 7),   -- Notifications: backend, feature
-(11, 3),            -- Migration: database
-(12, 1), (12, 7);   -- Dashboard: frontend, feature
+-- Subtareas del rediseño de interfaz (tarea 2)
+(9, 'Crear sistema de componentes', 
+ 'Desarrollar biblioteca de componentes reutilizables basada en Material Design 3.', 
+ 'completed', 'medium', '2025-01-05 17:00:00', 20.00, 18.25, 2, 2, 
+ '{"framework": "React", "storybook": true, "components_count": 25}', 
+ '2024-12-02 09:00:00', '2025-01-05 16:45:00', false),
 
--- Update sequences to match inserted data
-SELECT setval('auth_user_id_seq', 8, true);
-SELECT setval('app_tag_id_seq', 8, true);
-SELECT setval('app_task_id_seq', 12, true);
+(10, 'Implementar tema oscuro/claro', 
+ 'Agregar soporte para cambio dinámico entre tema oscuro y claro.', 
+ 'in_progress', 'low', '2025-01-15 17:00:00', 15.00, 8.50, 5, 2, 
+ '{"css_variables": true, "user_preference": "localStorage", "system_detection": true}', 
+ '2024-12-10 14:00:00', '2025-01-08 11:15:00', false),
 
--- Add some indexes for better performance
-CREATE INDEX IF NOT EXISTS idx_task_status ON app_task(status);
-CREATE INDEX IF NOT EXISTS idx_task_priority ON app_task(priority);
-CREATE INDEX IF NOT EXISTS idx_task_due_date ON app_task(due_date);
-CREATE INDEX IF NOT EXISTS idx_task_created_by ON app_task(created_by_id);
-CREATE INDEX IF NOT EXISTS idx_task_assigned_task ON app_task_assigned_to(task_id);
-CREATE INDEX IF NOT EXISTS idx_task_assigned_user ON app_task_assigned_to(user_id);
+-- Subtareas de optimización de BD (tarea 3)
+(11, 'Análisis de consultas lentas', 
+ 'Identificar y documentar las consultas más lentas usando pg_stat_statements.', 
+ 'pending', 'high', '2025-01-31 17:00:00', 12.00, NULL, 3, 3, 
+ '{"tool": "pg_stat_statements", "threshold": "500ms", "report_format": "detailed"}', 
+ '2024-12-21 09:00:00', '2024-12-21 09:00:00', false),
+
+(12, 'Crear índices optimizados', 
+ 'Implementar índices específicos para mejorar el rendimiento de consultas críticas.', 
+ 'pending', 'medium', '2025-02-15 17:00:00', 18.00, NULL, 4, 3, 
+ '{"index_types": ["btree", "gin", "partial"], "tables_affected": ["users", "tasks", "logs"]}', 
+ '2024-12-21 09:30:00', '2024-12-21 09:30:00', false);
+
+-- 5. Asignaciones de tareas (ManyToMany con users)
+INSERT INTO tasks_task_assigned_to (id, task_id, user_id) VALUES
+-- Tarea 1 (Sistema autenticación) - asignada a admin y john
+(1, 1, 1),
+(2, 1, 2),
+
+-- Tarea 2 (Rediseño interfaz) - asignada a jane y sarah
+(3, 2, 3),
+(4, 2, 5),
+
+-- Tarea 3 (Optimización BD) - asignada a mike
+(5, 3, 4),
+
+-- Tarea 4 (Notificaciones) - asignada a john y mike
+(6, 4, 2),
+(7, 4, 4),
+
+-- Subtarea 6 (JWT) - asignada a admin
+(8, 6, 1),
+
+-- Subtarea 7 (Endpoints) - asignada a john
+(9, 7, 2),
+
+-- Subtarea 8 (Recuperación contraseña) - asignada a jane
+(10, 8, 3),
+
+-- Subtarea 9 (Componentes) - asignada a sarah
+(11, 9, 5),
+
+-- Subtarea 10 (Temas) - asignada a sarah
+(12, 10, 5),
+
+-- Subtarea 11 (Análisis consultas) - asignada a mike
+(13, 11, 4),
+
+-- Subtarea 12 (Índices) - asignada a mike y admin
+(14, 12, 4),
+(15, 12, 1);
+
+-- 6. Asignación de tags a tareas (ManyToMany)
+INSERT INTO tasks_task_tags (id, task_id, tag_id) VALUES
+-- Tarea 1: Backend, Security, API
+(1, 1, 2),
+(2, 1, 11),
+(3, 1, 14),
+
+-- Tarea 2: Frontend, UI/UX
+(4, 2, 1),
+(5, 2, 13),
+
+-- Tarea 3: Database, Performance
+(6, 3, 3),
+(7, 3, 12),
+
+-- Tarea 4: Backend, Mobile, API
+(8, 4, 2),
+(9, 4, 15),
+(10, 4, 14),
+
+-- Tarea 5: Backend, Deployment (cancelada)
+(11, 5, 2),
+(12, 5, 10),
+
+-- Subtarea 6: Backend, Security
+(13, 6, 2),
+(14, 6, 11),
+
+-- Subtarea 7: Backend, API, Testing
+(15, 7, 2),
+(16, 7, 14),
+(17, 7, 4),
+
+-- Subtarea 8: Backend, Security
+(18, 8, 2),
+(19, 8, 11),
+
+-- Subtarea 9: Frontend, UI/UX
+(20, 9, 1),
+(21, 9, 13),
+
+-- Subtarea 10: Frontend, Feature
+(22, 10, 1),
+(23, 10, 7),
+
+-- Subtarea 11: Database, Performance, Research
+(24, 11, 3),
+(25, 11, 12),
+(26, 11, 9),
+
+-- Subtarea 12: Database, Performance
+(27, 12, 3),
+(28, 12, 12);
+
+-- 7. Actualizar secuencias (para PostgreSQL)
+SELECT setval('users_user_id_seq', (SELECT MAX(id) FROM users_user));
+SELECT setval('tasks_tag_id_seq', (SELECT MAX(id) FROM tasks_tag));
+SELECT setval('tasks_task_id_seq', (SELECT MAX(id) FROM tasks_task));
+SELECT setval('tasks_task_assigned_to_id_seq', (SELECT MAX(id) FROM tasks_task_assigned_to));
+SELECT setval('tasks_task_tags_id_seq', (SELECT MAX(id) FROM tasks_task_tags));
+
+-- Verificación: Consultas útiles para revisar los datos insertados
+-- SELECT COUNT(*) as total_users FROM users_user;
+-- SELECT COUNT(*) as total_tasks FROM tasks_task;
+-- SELECT COUNT(*) as total_tags FROM tasks_tag;
+-- SELECT t.title, u.first_name, u.last_name FROM tasks_task t 
+--   JOIN tasks_task_assigned_to tta ON t.id = tta.task_id
+--   JOIN users_user u ON tta.user_id = u.id;
+-- SELECT t.title, tg.name FROM tasks_task t 
+--   JOIN tasks_task_tags ttt ON t.id = ttt.task_id 
+--   JOIN tasks_tag tg ON ttt.tag_id = tg.id;

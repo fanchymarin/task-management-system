@@ -23,20 +23,19 @@ list:
 	@echo -e "  ${GREEN}${BOLD}up               ${CYAN}- Run the containerized application"
 	@echo -e "  ${GREEN}${BOLD}build            ${CYAN}- Build the container image"
 	@echo -e "  ${GREEN}${BOLD}down             ${CYAN}- Stop the containerized application"
-	@echo -e "  ${GREEN}${BOLD}test             ${CYAN}- Run tests in the containerized application"
+	@echo -e "  ${GREEN}${BOLD}shell            ${CYAN}- Access the Django container shell"
+	@echo -e "  ${GREEN}${BOLD}shelldb          ${CYAN}- Access the Postgres container shell"
 	@echo -e "  ${GREEN}${BOLD}clean            ${CYAN}- Stop and remove the database volume"
 	@echo -e "  ${GREEN}${BOLD}fclean           ${CYAN}- Stop and remove all containers and volumes"
 	@echo -e "  ${GREEN}${BOLD}re               ${CYAN}- Clean up all and run the containerized application"
 	@echo
 
-up: build
+up:
 	$(call help_message, "Running the containerized application...")
 	docker compose --project-name=${PROJECT_NAME} up -d
 	$(call help_message, "Application is ready!")
-	$(call help_message, "You can access it at http://localhost:${DJANGO_PORT}/api/")
-	@sleep 2
 	$(call help_message, "Showing the logs of Django container...")
-	docker compose --project-name=${PROJECT_NAME} logs -f django
+	docker compose --project-name=${PROJECT_NAME} logs -f django || true
 
 build:
 	$(call help_message, "Building the container image...")
@@ -46,13 +45,13 @@ down:
 	$(call help_message, "Stopping the containerized application...")
 	docker compose --project-name=${PROJECT_NAME} down
 
-shell: up
+shell:
 	$(call help_message, "Accessing the Django container shell...")
 	docker compose --project-name=${PROJECT_NAME} exec -it django /bin/bash
 
-test: up
-	$(call help_message, "Running tests from container...")
-	docker compose --project-name=${PROJECT_NAME} exec django make test
+shelldb:
+	$(call help_message, "Accessing the Postgres container shell...")
+	docker compose --project-name=${PROJECT_NAME} exec -it postgres /bin/bash
 
 clean: down
 	$(call help_message, "Removing the database volume...")
@@ -62,6 +61,6 @@ fclean: clean
 	$(call help_message, "Removing container image...")
 	docker rmi -f ${PROJECT_NAME}-django ${PROJECT_NAME}-postgres
 
-re: clean up
+re: clean build up
 
-.PHONY: all list up build down test clean fclean re
+.PHONY: all list up down shell shelldb clean fclean re
