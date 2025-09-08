@@ -1,15 +1,16 @@
 -- Dump de datos de prueba para el sistema de tareas
 
 -- 1. Insertar usuarios
-INSERT INTO users_user (
-    id, password, last_login, is_superuser, username, email, first_name, last_name, 
-    avatar, timezone, is_active, created_at, updated_at, is_staff, date_joined
-) VALUES
-(2, 'pbkdf2_sha256$600000$randomsalt456$hashedpassword', NOW(), false, 'john.doe', 'john.doe@example.com', 'John', 'Doe', 'https://avatar.example.com/john.jpg', 'America/New_York', true, NOW(), NOW(), false, NOW()),
-(3, 'pbkdf2_sha256$600000$randomsalt789$hashedpassword', NOW(), false, 'jane.smith', 'jane.smith@example.com', 'Jane', 'Smith', 'https://avatar.example.com/jane.jpg', 'Europe/London', true, NOW(), NOW(), false, NOW()),
-(4, 'pbkdf2_sha256$600000$randomsalt012$hashedpassword', NOW(), false, 'mike.johnson', 'mike.johnson@example.com', 'Mike', 'Johnson', NULL, 'America/Los_Angeles', true, NOW(), NOW(), false, NOW()),
-(5, 'pbkdf2_sha256$600000$randomsalt345$hashedpassword', NOW(), false, 'sarah.wilson', 'sarah.wilson@example.com', 'Sarah', 'Wilson', 'https://avatar.example.com/sarah.jpg', 'Asia/Tokyo', true, NOW(), NOW(), false, NOW()),
-(6, 'pbkdf2_sha256$600000$randomsalt678$hashedpassword', '2024-01-15 10:30:00', false, 'david.brown', 'david.brown@example.com', 'David', 'Brown', NULL, 'UTC', false, NOW(), NOW(), false, NOW());
+INSERT INTO users_user (id, username, first_name, last_name, email, password, is_staff, is_active, is_superuser, date_joined, last_login) VALUES
+(2, 'john_dev', 'John', 'Smith', 'john@example.com', 'pbkdf2_sha256$260000$q7zdp1I9O4N8N9QFtHZdkL$uGq/vk2nCZ+WUoRRRJ4sMbm4ivXYu4A2tVDPGCGC8zU=', false, true, false, '2024-10-02 09:15:00', '2025-01-07 16:45:00'),
+(3, 'jane_dev', 'Jane', 'Johnson', 'jane@example.com', 'pbkdf2_sha256$260000$hjd78JHGfrt45TYUhjkOiU$zRRUU0gap5Yu6qhWQ3K94aRQW8aRLQZQYW7z1LZ1xkQ=', false, true, false, '2024-10-03 14:30:00', '2025-01-08 09:20:00'),
+(4, 'mike_db', 'Mike', 'Davis', 'mike@example.com', 'pbkdf2_sha256$260000$h45Jk8FGhj34kLM9pOiUyT$Rft56HGhj78Tyu45JkloP90oPLkjhGfrd5TyuiOPqwE=', false, true, false, '2024-10-05 11:45:00', '2025-01-08 10:15:00'),
+(5, 'sarah_ui', 'Sarah', 'Wilson', 'sarah@example.com', 'pbkdf2_sha256$260000$uY67hGFrt45JhGfr56TyU$hjKl78GhYuiOPqwEJkloP90oPLkrft56HhGfrd5T5Ty=', false, true, false, '2024-10-08 08:30:00', '2025-01-07 14:50:00'),
+(6, 'lisa_qa', 'Lisa', 'Thompson', 'lisa@example.com', 'pbkdf2_sha256$260000$qWs4aB9C8dEfG0hI1jK2lM$nOpQrS5tUvW3xYz4aB9c8DeFg0Hi1Jk2LmN3oPqR5sT=', false, true, false, '2024-10-10 13:20:00', '2025-01-07 11:30:00'),
+(7, 'david_ops', 'David', 'Garcia', 'david@example.com', 'pbkdf2_sha256$260000$aBcDeF1g2H3i4J5k6L7m8N$oPqRsTuVwXyZaBcDeFgHiJkLmNoPqRsTuVwXyZ9AbC=', false, true, false, '2024-10-12 09:45:00', '2025-01-08 10:00:00'),
+(8, 'emma_pm', 'Emma', 'Martinez', 'emma@example.com', 'pbkdf2_sha256$260000$1A2b3C4d5E6f7G8h9I0j$KlMnOpQrStUvWxYzAbCdEfGhIjKlMnOpQrStUvWxYz=', true, true, false, '2024-10-15 14:00:00', '2025-01-08 15:45:00'),
+(9, 'alex_dev', 'Alex', 'Rodriguez', 'alex@example.com', 'pbkdf2_sha256$260000$aA1bB2cC3dD4eE5fF6gG$hHiIjJkKlLmMnNoPpQqRrSsTtUuVvWwXxYyZzAaBbCc=', false, true, false, '2024-10-18 10:30:00', '2025-01-07 17:20:00'),
+(10, 'sam_security', 'Samantha', 'Lee', 'sam@example.com', 'pbkdf2_sha256$260000$zZyYxXwWvVuUtTsSrRqQp$PpOoNnMmLlKkJjIiHhGgFfEeDdCcBbAaZzYyXxWwVv=', false, true, false, '2024-10-20 08:15:00', '2025-01-08 09:40:00');
 
 -- 2. Insertar tags
 INSERT INTO tasks_tag (id, name) VALUES
