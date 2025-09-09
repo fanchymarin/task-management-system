@@ -1,0 +1,28 @@
+{% extends "rest_framework/login_base.html" %}
+
+{% block title %}Task Manager - Login{% endblock %}
+
+{% block branding %}
+    <h3 style="margin: 0 0 20px;">Task Manager</h3>
+{% endblock %}
+
+{% block style %}
+	{% load static %}
+	<link rel="stylesheet" href="{% static '98.css' %}">
+	<link rel="stylesheet" href="{% static 'login/style.css' %}">
+{% endblock %}
+
+{% block body %}
+<body>
+	<div class="window">
+		<div class="title-bar"></div>
+		<div class="window-body">
+			<form method="post" action="{% url 'rest_framework:login' %}">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button type="submit">Login</button>
+			</form>
+		</div>
+	</div>
+</body>
+{% endblock %}

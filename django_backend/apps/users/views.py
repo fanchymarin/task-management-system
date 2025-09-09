@@ -16,7 +16,6 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     http_method_names = ['get', 'put', 'head']
     pagination_class = UserPagination
-    renderer_classes = [AdminRenderer]
 
     @action(methods=['get'], detail=False, url_path='me', url_name='me')
     def me(self, request):
