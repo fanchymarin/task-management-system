@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
     'apps.users',
     'apps.tasks',
     'apps.common',
@@ -152,6 +153,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+	'DEFAULT_RENDERER_CLASSES': [
+		'rest_framework.renderers.AdminRenderer',
+        'rest_framework.renderers.JSONRenderer',
+    ]
 }
