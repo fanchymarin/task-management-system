@@ -58,7 +58,7 @@ shelldb:
 
 clean: down
 	$(call help_message, "Removing the database volume...")
-	docker volume rm -f ${PROJECT_NAME}_postgres-data
+	docker volume rm -f ${PROJECT_NAME}_postgres-data ${PROJECT_NAME}redis-data 
 
 fclean: clean
 	$(call help_message, "Removing container image...")
