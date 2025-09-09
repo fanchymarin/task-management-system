@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from .models import Task
-from .serializers import TaskSerializer, TaskDetailSerializer
+from .serializers import TaskSerializer, TaskDetailSerializer, CommentSerializer
 from rest_framework import filters
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
@@ -27,13 +27,16 @@ class TaskViewSet(viewsets.ModelViewSet):
             return TaskDetailSerializer
         return TaskSerializer
 
+    # Action to assign/unassign a user to/from a task
     @action(detail=True, methods=['get', 'post'], url_path='assign', url_name='assign')
     def assign_task(self, request, pk=None):
         task = self.get_object()
         
         if request.method == 'GET':
-            serializer = self.get_serializer(task)
-            return Response(serializer.data)
+            # Return only the assigned_to field
+            return Response({
+                'assigned_to': TaskDetailSerializer(task, context={'request': request}).data.get('assigned_to')
+            })
         
         user_id = request.data.get('user_id')
         if not user_id:
@@ -51,3 +54,23 @@ class TaskViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         except User.DoesNotExist:
             return Response({'error': 'User not found'}, status=404)
+        
+    # Action to view and add comments to a task
+    @action(detail=True, methods=['get', 'post'], url_path='comments', url_name='comments')
+    def manage_comments(self, request, pk=None):
+        task = self.get_object()
+        
+        if request.method == 'GET':
+            comments = task.comments.all()
+            # Return only the comments field
+            serializer = CommentSerializer(comments, many=True)
+            return Response(serializer.data)
+        
+        serializer = CommentSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=400)
+        
+        comment = serializer.save()
+        task.comments.add(comment)
+        task.save()
+        return Response(CommentSerializer(comment).data, status=201)
