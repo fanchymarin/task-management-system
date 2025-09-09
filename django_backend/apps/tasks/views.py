@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from .models import Task
-from .serializers import TaskSerializer, TaskDetailSerializer, CommentSerializer
+from apps.users.models import User
+from .serializers import TaskSerializer, TaskDetailSerializer, CommentSerializer, AssignTaskSerializer
 from rest_framework import filters
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
@@ -25,9 +26,14 @@ class TaskViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'retrieve':
             return TaskDetailSerializer
+        if self.action == 'manage_comments':
+            return CommentSerializer
+        if self.action == 'assign_task':
+            return AssignTaskSerializer
         return TaskSerializer
 
     # Action to assign/unassign a user to/from a task
+
     @action(detail=True, methods=['get', 'post'], url_path='assign', url_name='assign')
     def assign_task(self, request, pk=None):
         task = self.get_object()
@@ -35,14 +41,13 @@ class TaskViewSet(viewsets.ModelViewSet):
         if request.method == 'GET':
             # Return only the assigned_to field
             return Response({
-                'assigned_to': TaskDetailSerializer(task, context={'request': request}).data.get('assigned_to')
+                'assigned_to': TaskSerializer(task, context={'request': request}).data.get('assigned_to')
             })
         
-        user_id = request.data.get('user_id')
+        user_id = request.data.get('assigned_to')
         if not user_id:
-            return Response({'error': 'user_id is required'}, status=400)
+            return Response({'Error': 'user_id is required'}, status=400)
         
-        from apps.users.models import User
         try:
             user = User.objects.get(id=user_id)
             if user in task.assigned_to.all():
@@ -50,21 +55,18 @@ class TaskViewSet(viewsets.ModelViewSet):
             else:
                 task.assigned_to.add(user)
             task.save()
-            serializer = self.get_serializer(task)
-            return Response(serializer.data)
+            return Response({'assigned_to': TaskSerializer(task, context={'request': request}).data.get('assigned_to')}, status=200)
         except User.DoesNotExist:
-            return Response({'error': 'User not found'}, status=404)
+            return Response({'Error': 'User not found'}, status=404)
         
     # Action to view and add comments to a task
-    @action(detail=True, methods=['get', 'post'], url_path='comments', url_name='comments')
+    @action(detail=True, methods=['get', 'post'], url_path='comments', url_name='comments', serializer_class=CommentSerializer)
     def manage_comments(self, request, pk=None):
         task = self.get_object()
         
         if request.method == 'GET':
-            comments = task.comments.all()
-            # Return only the comments field
-            serializer = CommentSerializer(comments, many=True)
-            return Response(serializer.data)
+            comments = CommentSerializer(task.comments.all(), many=True).data
+            return Response(comments)
         
         serializer = CommentSerializer(data=request.data)
         if not serializer.is_valid():
@@ -73,4 +75,6 @@ class TaskViewSet(viewsets.ModelViewSet):
         comment = serializer.save()
         task.comments.add(comment)
         task.save()
-        return Response(CommentSerializer(comment).data, status=201)
+
+        comments = CommentSerializer(task.comments.all(), many=True).data
+        return Response(comments, status=201)

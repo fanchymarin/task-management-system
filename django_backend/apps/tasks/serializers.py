@@ -1,6 +1,12 @@
 from rest_framework import serializers
 from .models import Task, Tag, Comment
 
+
+class AssignTaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ['assigned_to']
+
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
