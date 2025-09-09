@@ -43,7 +43,9 @@ services:
       - ./django_backend:/app
   
   redis:
-    image: redis:7-alpine
+    build:
+      context: .
+      dockerfile: images/redis/Dockerfile
     hostname: redis
     restart: always
     healthcheck:

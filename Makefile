@@ -62,7 +62,7 @@ clean: down
 
 fclean: clean
 	$(call help_message, "Removing container image...")
-	docker rmi -f ${PROJECT_NAME}-django ${PROJECT_NAME}-postgres
+	docker rmi -f ${PROJECT_NAME}-django ${PROJECT_NAME}-postgres ${PROJECT_NAME}-redis
 
 re: clean build up
 
