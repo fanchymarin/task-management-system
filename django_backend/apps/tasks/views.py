@@ -20,7 +20,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['status', 'priority', 'assigned_to']
     search_fields = ['title', 'description']
-    ordering_fields = ['created_at', 'due_date', 'priority']
+    ordering_fields = ['created_at', 'due_date']
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
