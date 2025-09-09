@@ -24,7 +24,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     ordering_fields = ['created_at', 'due_date']
 
     def get_serializer_class(self):
-        if self.action == 'retrieve':
+        if self.action == 'retrieve' or self.action == 'update' or self.action == 'partial_update':
             return TaskDetailSerializer
         if self.action == 'manage_comments':
             return CommentSerializer

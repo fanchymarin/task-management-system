@@ -35,7 +35,7 @@ class Task(models.Model):
     description = models.TextField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES)
-    due_date = models.DateTimeField()
+    due_date = models.DateTimeField(null=True, blank=True)
     estimated_hours = models.IntegerField()
     actual_hours = models.DecimalField(max_digits=5, decimal_places=2, null=True)
     
