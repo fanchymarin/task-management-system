@@ -5,6 +5,7 @@ from .serializers import UserSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.renderers import AdminRenderer
 
 class UserPagination(PageNumberPagination):
     page_size = 10
@@ -16,6 +17,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     http_method_names = ['get', 'put', 'head']
     pagination_class = UserPagination
+    renderer_classes = [AdminRenderer]
 
     @action(methods=['get'], detail=False, url_path='me', url_name='me')
     def me(self, request):
